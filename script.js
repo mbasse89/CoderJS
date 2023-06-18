@@ -17,7 +17,7 @@ let opciones
 
 let nombre = prompt('Ingresa tu nombre')
 
-let mensaje = "Bienvenido " + nombre + " a 'Hoteles Ushuahia'. Te pido que elijas una de estas opciones \n1 - Lista de hoteles\n2 - Filtrar por categoria\n3 -  Buscar por nombre\n4 - Listar ordenados por precio\n5 - Agregar hotel al carrito \n 6 - Listar y calcular por noche\n7 - Ver total y finalizar compra\n0 - SALIR"
+let mensaje = "Bienvenido " + nombre + " a 'Hoteles Ushuahia'. Te pido que elijas una de estas opciones \n1 - Lista de hoteles\n2 - Filtrar por categoria\n3 -  Buscar por nombre\n4 - Listar ordenados por precio\n5 - Agregar hotel al carrito \n 6 - Listar y calcular por noche\n0 - SALIR"
 
 
 //  funcion que sirve para listar
@@ -30,9 +30,6 @@ function listar(arrayAListar) {
 }
 
 
-
-
-
 // comienza la estructura
 do {
   let opciones = Number(prompt(mensaje))
@@ -41,8 +38,8 @@ do {
   if (opciones === 1) {
 
 
-          let nombreHoteles = hoteles.map((hotel) => hotel.nombre)
-          let listaHoteles = nombreHoteles.join(",\n")
+          let nombreHoteles = hoteles.map((hotel) => hotel.nombre) // crea array con los nombres 
+          let listaHoteles = nombreHoteles.join(",\n") // une todos los nombre de los hoteles en una variable
 
           alert("Nombres de los hoteles disponibles:\n" + listaHoteles)
 
@@ -53,11 +50,12 @@ do {
 
 
 
-          let hotelesFiltrados = hoteles.filter((hotel) => hotel.estrellas === categoria)
-          let hotelesInfo = hotelesFiltrados.map((hotel) => `${hotel.nombre} - ${hotel.estrellas} estrellas`)
+          let hotelesFiltrados = hoteles.filter((hotel) => hotel.estrellas === categoria) // filtra y compara estrellas con variable categoria
+          let hotelesInfo = hotelesFiltrados.map((hotel) => `${hotel.nombre} - ${hotel.estrellas} estrellas`) // se crea variable para guardar el map 
 
           let mensaje = "Hoteles filtrados por categoría de estrellas:"
-          if (hotelesInfo.length > 0) {
+          
+          if (hotelesInfo.length > 0) { // si el tamaño del array es mayor a 0 retornará todos los hoteles de una misma categoria
             mensaje += "\n" + hotelesInfo.join("\n")
           } else {
             mensaje += "\nNo se encontraron hoteles en esa categoría."
@@ -68,9 +66,9 @@ do {
   } else if (opciones === 3) {
     //              BUSCA POR NOMBRE DE HOTEL
           let nombreIngresado = prompt("Ingresá el nombre del hotel que estás buscando") 
-          nombreIngresado = nombreIngresado.toLowerCase();
-          let nombreBuscado = hoteles.find ( hotel => hotel.nombre.toLowerCase() === nombreIngresado)
-          if (nombreBuscado) {
+          nombreIngresado = nombreIngresado.toLowerCase(); 
+          let nombreBuscado = hoteles.find ( hotel => hotel.nombre.toLowerCase() === nombreIngresado) // busca y compara  hotel ingresado con uno que ya existe
+          if (nombreBuscado) { // si la condicion es tru, devolverá una concatenación de propiedad especificaas
             alert(`Nombre: ${nombreBuscado.nombre}\nCategoría: ${nombreBuscado.estrellas} estrellas\nPrecio: ${nombreBuscado.precio}`)
           } else {
             alert("Hotel no encontrado");
@@ -81,14 +79,14 @@ do {
     let orden = prompt("Ingrese '+' si quiere que se ordene de mayor a menor precio, O ingrese '-' si quiere que se ordene de menor a mayor precio" )
     //                      ORDENAR POR PRECIO
         if (orden === '-'){
-          let hotelesPorPrecio = hoteles.sort((a, b) => a.precio - b.precio)
-          let nombresHoteles = hotelesPorPrecio.map(hotel => hotel.nombre)
+          let hotelesPorPrecio = hoteles.sort((a, b) => a.precio - b.precio) // se ordena de manera ascendente
+          let nombresHoteles = hotelesPorPrecio.map(hotel => hotel.nombre) // se utiliza map para asociar precio y nombre de cada htl
       
           let mensaje = listarPrecio(hotelesPorPrecio)
       
            alert(mensaje)
         } else if ( orden === "+"){
-          let hotelesPorPrecio = hoteles.sort((a, b) => a.precio + b.precio)
+          let hotelesPorPrecio = hoteles.sort((a, b) => b.precio - a.precio)
           let nombresHoteles = hotelesPorPrecio.map(hotel => hotel.nombre)
       
           let mensaje = listarPrecio(hotelesPorPrecio)
@@ -98,7 +96,7 @@ do {
           alert("Error en dato ingresado")
         }
 
-        function listarPrecio(arrayAListar) {
+        function listarPrecio(arrayAListar) { // funcion creada para listar 
           let listado = "Nombnre - Precio\n"
           arrayAListar.forEach(element => {
             listado = listado + element.nombre + " -  $" + element.precio + "\n"
@@ -108,14 +106,15 @@ do {
   } else if (opciones ===5){
 //                                  AGREGAR HOTEL A CARRITO
           let listaHoteles = "Lista de Hoteles:\n"
-          hoteles.forEach((hotel) => {
+          hoteles.forEach((hotel) => { // recorre array hoteles y se crea variable con propiedades especificas para mostrar a usuario
             listaHoteles += `    ID: ${hotel.id}\nNombre: ${hotel.nombre}\nPrecio:  $${hotel.precio} por noche \n `
           })
           let agregar = prompt (listaHoteles)
 
-          let hotelSeleccionado = hoteles.find((hotel) => hotel.id === Number(agregar))
 
-          if (hotelSeleccionado) {
+          let hotelSeleccionado = hoteles.find((hotel) => hotel.id === Number(agregar)) // se usa find para buscar ID con lo q ingresa usuario
+
+          if (hotelSeleccionado) { // si la condicion es true va a agregar a carrito lo q selecciono usuario
             // Agregar el hotel seleccionado al array carrito
             carrito.push(hotelSeleccionado) 
             alert("Hotel agregado al carrito.")
@@ -127,7 +126,7 @@ do {
           
     let lista =""
  
-        if (carrito.length > 0){
+        if (carrito.length > 0){ // si se cumple condicion, se recorrera el array carrito para q se mueste nombre y precio de c/hotel
           carrito.forEach((hotel) => {
             lista += `${hotel.nombre} $ ${hotel.precio} por noche\n`
           })
@@ -138,14 +137,20 @@ do {
 
         let cantNoches = Number(prompt("Ahora indicanos cuantas noches vas a hospedarte."))
 
+        if (cantNoches > 0) { // si cantNoches es mayor a 0 se hara calculo 
         carrito.forEach((hotel) =>{
           let total = hotel.precio * cantNoches
-        alert(total)
+        alert("EL total a abonar es de: $ " + total)
+       })
+      
+      } else {
+        alert("Por favor ingrese una opción correcta.")
+      }
 
-        })
 
    } else if (opciones === 0){
-         break
+      alert("Gracias por visitar 'Hoteles Ushuahia' ")
+         break // si usuario elige esta opción, finalizará el códigop
    }
 
 } while(opciones !== 0)

@@ -1,19 +1,166 @@
 let hoteles = [
-  { id: 1, nombre: "Hotel los altos ushuahia", estrellas: 4, precio: 15000, rutaImagen: "img/altosUshuaia.jpg"},
-  { id: 2, nombre: "Hotel monaco", estrellas: 3, precio: 12000, rutaImagen: "img/monaco.jpg"},
-  { id: 3, nombre: "Hotel fueguino", estrellas: 3, precio: 11000, rutaImagen: "img/fueguino.jpg" },
-  { id: 4, nombre: "Hotel vitalia", estrellas: 4, precio: 18000, rutaImagen: "img/vitalia.jpg"},
-  { id: 5, nombre: "Hotel alto andino", estrellas: 5, precio: 21000, rutaImagen: "img/altoAndino.jpg"  },
-  { id: 6, nombre: "Hostel las marias", estrellas: 2, precio: 8000,  rutaImagen: "img/lasMarias.jpg"},
-  { id: 7, nombre: "Hotel las hayas resort", estrellas: 5, precio: 22000, rutaImagen:"img/lasHayas.jpg" },
-  { id: 8, nombre: "Hotel los naranjos", estrellas: 3, precio: 13000, rutaImagen: "img/losnaranjos.jpg" },
-  { id: 9, nombre: "Hotel las lengas", estrellas: 4, precio: 19000, rutaImagen: "img/lasLengas.jpg" },
-  { id: 10, nombre: "Hotel Canal de Beagle", estrellas: 4, precio: 18500, rutaImagen: "img/canalBeagle.jpg" }
+  { id: 1, nombre: "Hotel Los Altos Ushuahia", estrellas: 4, precio: 15000, rutaImagen: "img/altosUshuaia.jpg"},
+  { id: 2, nombre: "Hotel Monaco", estrellas: 3, precio: 12000, rutaImagen: "img/monaco.jpg"},
+  { id: 3, nombre: "Hotel Fueguino", estrellas: 3, precio: 11000, rutaImagen: "img/fueguino.jpg" },
+  { id: 4, nombre: "Hotel Vitalia", estrellas: 4, precio: 18000, rutaImagen: "img/vitalia.jpg"},
+  { id: 5, nombre: "Hotel Alto Andino", estrellas: 5, precio: 21000, rutaImagen: "img/altoAndino.jpg"  },
+  { id: 6, nombre: "Hostel Las Marias", estrellas: 2, precio: 8000,  rutaImagen: "img/lasMarias.jpg"},
+  { id: 7, nombre: "Hotel Las Hayas Resort", estrellas: 5, precio: 22000, rutaImagen:"img/lasHayas.jpg" },
+  { id: 8, nombre: "Hotel Los Naranjos", estrellas: 3, precio: 13000, rutaImagen: "img/losnaranjos.jpg" },
+  { id: 9, nombre: "Hotel Las Lengas", estrellas: 4, precio: 19000, rutaImagen: "img/lasLengas.jpg" },
+  { id: 10, nombre: "Hotel Canal de Beagle", estrellas: 4, precio: 18500, rutaImagen: "img/canalBeagle.jpg" },
+  { id: 11, nombre: "Hotel Mil810", estrellas: 3, precio: 14500, rutaImagen: "img/mil810.jpg"},
+  { id: 12, nombre: "Campanilla", estrellas: 3, precio: 16000, rutaImagen: "img/campanilla.jpg"},
+  { id: 13, nombre: "Costa Ushuaia", estrellas: 4, precio: 18500, rutaImagen: "img/costaUshuaia.jpg"},
+  { id: 14, nombre: "Tolkeyen", estrellas: 3, precio: 13500, rutaImagen: "img/tolkeyen.jpg"},
+  { id: 15, nombre: "Hostal Malvina", estrellas: 2, precio: 7000, rutaImagen: "img/malvinas.webp"},
+  { id: 16, nombre: "Los Cauquenes Spa & Resort", estrellas: 5, precio: 22500, rutaImagen: "img/cauquenes.jpg"}
+
 ]
 
 
-// declaracion de variables
-let carrito = []
+let carrito = [] // array carrito que comienza vacio
+
+ // al iniciar la pagina verificara si el carrito esta vacio o no
+if (localStorage.getItem("carrito")) {
+  carrito = JSON.parse(localStorage.getItem("carrito"))
+}
+
+
+function mostrarContenidoCarrito() {
+  let contenidoCarritoElement = document.getElementById("contenidoCarrito")
+  contenidoCarritoElement.innerHTML = "" // Limpia el contenido anterior del carrito
+
+  if (carrito.length === 0) {
+    contenidoCarritoElement.innerText = "El carrito está vacío"
+
+  } else {
+    contenidoCarritoElement.innerHTML = "" // Limpia el contenido anterior del carrito
+
+    carrito.forEach((producto, index) => {
+      let productoElement = document.createElement("p")
+      productoElement.innerText = `Producto ${index + 1}: ${producto.nombre} \n Precio: $${producto.precio}`
+      contenidoCarritoElement.appendChild(productoElement)
+    });
+  }
+}
+
+let btnCarrito = document.getElementById("btnCarrito")
+btnCarrito.addEventListener("click", () => {
+  mostrarContenidoCarrito()
+})
+
+
+//  se toma por ID el div buscador
+let buscador = document.getElementById("buscador")
+let divBuscar = document.getElementById ("divBuscador")
+divBuscar.classList.add("styleBuscador") // se agrega clase al buscador
+ 
+let contenedorHoteles = document.getElementById("contenedorHoteles") // se toma por id el div 
+
+// Agregar evento input al campo de búsqueda
+buscador.addEventListener("input", buscarHoteles)
+// Mostrar todos los hoteles al cargar la página
+mostrarHoteles(hoteles)
+
+// Función para mostrar los hoteles
+function mostrarHoteles(hoteles) {
+  contenedorHoteles.innerHTML = ""
+
+  hoteles.forEach(hotel => {
+    let divHotel = document.createElement("div")
+ 
+    let imagen = document.createElement("img")
+    imagen.src = hotel.rutaImagen 
+    imagen.classList.add("imgHotel")
+    divHotel.appendChild(imagen)
+
+    let nombre = document.createElement("h4")
+    nombre.innerText = hotel.nombre
+    divHotel.appendChild(nombre)
+
+    let estrellas = document.createElement("p")
+    estrellas.innerText = "Estrellas: " + hotel.estrellas
+    divHotel.appendChild(estrellas)
+
+    let precio = document.createElement("p")
+    precio.innerText = "Precio: $" + hotel.precio
+    divHotel.appendChild(precio)
+
+    contenedorHoteles.appendChild(divHotel)
+
+    let botonAgregarNoche = document.createElement("button")
+    botonAgregarNoche.innerText = "Agregar noche +"
+    divHotel.appendChild(botonAgregarNoche)
+
+    // evento para agregar noche con el boton
+    botonAgregarNoche.addEventListener("click", () => agregarNocheHotel(hotel))
+
+    
+          })
+}
+
+// agrega noche al carrito 
+function agregarNocheHotel(hotel) {
+  carrito.push(hotel)
+  localStorage.setItem("carrito", JSON.stringify(carrito))
+   alert(`Se ha agregado una noche en el hotel "${hotel.nombre}" al carrito de compras.`)
+}
+
+
+
+// Función para buscar hoteles
+function buscarHoteles() {
+  let busqueda = buscador.value.toLowerCase()
+  let resultados = hoteles.filter(hotel => 
+    hotel.nombre.toLowerCase().includes(busqueda))
+
+  mostrarHoteles(resultados)
+}
+
+
+// evento para checkbox por categoria 
+let checkBox1 = document.getElementById("checkbox1") 
+checkBox1.addEventListener("change", () => {  // evento 
+  checkBox1.checked ? filtrarPorCategoria(5) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
+})
+
+let checkBox2 = document.getElementById("checkbox2")
+checkBox2.addEventListener("change", () => {
+  checkBox2.checked ? filtrarPorCategoria(4) : mostrarHoteles(hoteles) // se utiliza metodo ternario del IF
+
+})
+
+let checkBox3 = document.getElementById("checkbox3")
+checkBox3.addEventListener("change", () => {
+    checkBox3.checked ? filtrarPorCategoria(3) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
+})
+
+let checkBox4 = document.getElementById("checkbox4");
+checkBox4.addEventListener("change", () => {
+  checkBox4.checked ? filtrarPorCategoria(2) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
+
+})
+
+let checkBox5 = document.getElementById("checkbox5");
+checkBox5.addEventListener("change", () => {
+  checkBox5.checked ? filtrarPorCategoria(1) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
+
+})
+
+function filtrarPorCategoria(categoria) {
+  let resultados = hoteles.filter(hotel => hotel.estrellas === categoria)
+  mostrarHoteles(resultados)
+}
+
+
+
+
+
+
+
+
+
 // let opciones
 
 // let nombre = prompt('Ingresa tu nombre')
@@ -166,54 +313,3 @@ let carrito = []
 
 /////////////////////////////////////////////////////////////////////
  
-let buscador = document.getElementById("buscador")
-let divBuscar = document.getElementById ("divBuscador")
-divBuscar.classList.add("styleBuscador")
- 
-let contenedorHoteles = document.getElementById("contenedorHoteles")
-
-// Agregar evento input al campo de búsqueda
-buscador.addEventListener("input", buscarHoteles)
-// Mostrar todos los hoteles al cargar la página
-mostrarHoteles(hoteles)
-
-// Función para mostrar los hoteles
-function mostrarHoteles(hoteles) {
-  contenedorHoteles.innerHTML = ""
-
-  hoteles.forEach(hotel => {
-    let divHotel = document.createElement("div")
- 
-    let imagen = document.createElement("img")
-    imagen.src = hotel.rutaImagen 
-    imagen.classList.add("imgHotel")
-    divHotel.appendChild(imagen)
-
-    let nombre = document.createElement("h4")
-    nombre.innerText = hotel.nombre
-    divHotel.appendChild(nombre)
-
-    let estrellas = document.createElement("p")
-    estrellas.innerText = "Estrellas: " + hotel.estrellas
-    divHotel.appendChild(estrellas)
-
-    let precio = document.createElement("p")
-    precio.innerText = "Precio: $" + hotel.precio
-    divHotel.appendChild(precio)
-
-    contenedorHoteles.appendChild(divHotel)
-
-    let botonAgregarNoche = document.createElement("button")
-    botonAgregarNoche.innerText = "Agregar noche +"
-    divHotel.appendChild(botonAgregarNoche)
-  })
-}
-
-// Función para buscar hoteles
-function buscarHoteles() {
-  let busqueda = buscador.value.toLowerCase();
-  let resultados = hoteles.filter(hotel => 
-    hotel.nombre.toLowerCase().includes(busqueda))
-
-  mostrarHoteles(resultados)
-}

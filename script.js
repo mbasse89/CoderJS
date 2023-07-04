@@ -38,8 +38,6 @@ function mostrarContenidoCarrito() {
   let valorTotal = 0
   contenidoCarritoElement.innerHTML = "" // Limpia el contenido anterior del carrito
 
-
-
   if (carrito.length === 0) {
     contenidoCarritoElement.innerText = "El carrito está vacío"
 
@@ -58,16 +56,12 @@ function mostrarContenidoCarrito() {
     totalNochesElement.innerText = `Total de noches: ${totalNoches}`// Muestra el total de noches
     contenidoCarritoElement.appendChild(totalNochesElement)
 
-    let valorTotalElement = document.createElement("p");
-    valorTotalElement.innerText = `Valor total: $${valorTotal}`; // Muestra el valor total
-    contenidoCarritoElement.appendChild(valorTotalElement);
+    let valorTotalElement = document.createElement("p")
+    valorTotalElement.innerText = `Valor total: $${valorTotal}` // Muestra el valor total
+    contenidoCarritoElement.appendChild(valorTotalElement)
 
   }
 }
-
-
-
-
 
 
 // evento que muestra el contenido del coarrito
@@ -166,44 +160,29 @@ function buscarHoteles() {
 }
 
 
-// evento para checkbox por categoria 
-let checkBox1 = document.getElementById("checkbox1") 
-checkBox1.addEventListener("click", () => {  // evento que se modifica si una 
-  // checkBox1.checked ? filtrarPorCategoria(5) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
-  filtrarPorCategoria(5)
-})
+// evento que filtra por botones las cateogrias
+function eventoCategoria(id, categoria) {
+  let boton = document.getElementById(id)
+  boton.addEventListener("click", () => {
+    filtrarPorCategoria(categoria)
+  })
+}
 
-let checkBox2 = document.getElementById("checkbox2")
-checkBox2.addEventListener("click", () => {
-  // checkBox2.checked ? filtrarPorCategoria(4) : mostrarHoteles(hoteles) // se utiliza metodo ternario del IF
-  filtrarPorCategoria(4)
+  eventoCategoria("cincoEstrellas", 5)
+  eventoCategoria("cuatroEstrellas", 4)
+  eventoCategoria("tresEstrellas", 3)
+  eventoCategoria("dosEstrellas", 2)
+  eventoCategoria("unaEstrella", 1)
 
-})
+  let todos = document.getElementById("todos")
+  todos.addEventListener("click", () => {
+    mostrarHoteles(hoteles)
+  })
 
-let checkBox3 = document.getElementById("checkbox3")
-checkBox3.addEventListener("click", () => {
-filtrarPorCategoria(3)
-})
-
-let checkBox4 = document.getElementById("checkbox4");
-checkBox4.addEventListener("click", () => {
-filtrarPorCategoria(2)
-})
-
-let checkBox5 = document.getElementById("checkbox5");
-checkBox5.addEventListener("click", () => {
-filtrarPorCategoria(1)
-})
-
-let todos = document.getElementById("todos")
-todos.addEventListener("click", () =>{
-  mostrarHoteles(hoteles)
-})
-
-// funcion para filtrar por categoria
-function filtrarPorCategoria(categoria) {
-  let resultados = hoteles.filter(hotel => hotel.estrellas === categoria)
-  
+  // funcion para filtrar por categoria
+  function filtrarPorCategoria(categoria) {
+    let resultados = hoteles.filter(hotel => hotel.estrellas === categoria)
+    
   mostrarHoteles(resultados)
 }
 

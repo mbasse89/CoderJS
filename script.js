@@ -14,22 +14,31 @@ let hoteles = [
   { id: 13, nombre: "Costa Ushuaia", estrellas: 4, precio: 18500, rutaImagen: "img/costaUshuaia.jpg"},
   { id: 14, nombre: "Tolkeyen", estrellas: 3, precio: 13500, rutaImagen: "img/tolkeyen.jpg"},
   { id: 15, nombre: "Hostal Malvina", estrellas: 2, precio: 7000, rutaImagen: "img/malvinas.webp"},
-  { id: 16, nombre: "Los Cauquenes Spa & Resort", estrellas: 5, precio: 22500, rutaImagen: "img/cauquenes.jpg"}
+  { id: 16, nombre: "Los Cauquenes Spa & Resort", estrellas: 5, precio: 22500, rutaImagen: "img/cauquenes.jpg"},
+  { id: 17, nombre: "Anum Hostel", estrellas: 1, precio: 6000, rutaImagen: "img/anum.webp"}
+ ]
 
-]
+ let excursiones = [
+  {id: 1 , nombre: "Parque con Trekking y Canoas", precio: 35190, rutaImagen : "img/excursiones/trekingCanoas.jpg"  }
+ ]
 
 
 let carrito = [] // array carrito que comienza vacio
+
 
  // al iniciar la pagina verificara si el carrito esta vacio o no
 if (localStorage.getItem("carrito")) {
   carrito = JSON.parse(localStorage.getItem("carrito"))
 }
-
+///
 
 function mostrarContenidoCarrito() {
-  let contenidoCarritoElement = document.getElementById("contenidoCarrito")
+  let contenidoCarritoElement = document.getElementById("divCarrito")
+  let totalNoches = 0
+  let valorTotal = 0
   contenidoCarritoElement.innerHTML = "" // Limpia el contenido anterior del carrito
+
+
 
   if (carrito.length === 0) {
     contenidoCarritoElement.innerText = "El carrito está vacío"
@@ -41,20 +50,48 @@ function mostrarContenidoCarrito() {
       let productoElement = document.createElement("p")
       productoElement.innerText = `Producto ${index + 1}: ${producto.nombre} \n Precio: $${producto.precio}`
       contenidoCarritoElement.appendChild(productoElement)
-    });
+      totalNoches += producto.noches
+      valorTotal += producto.noches * producto.precio
+    })
+
+    let totalNochesElement = document.createElement("p")
+    totalNochesElement.innerText = `Total de noches: ${totalNoches}`// Muestra el total de noches
+    contenidoCarritoElement.appendChild(totalNochesElement)
+
+    let valorTotalElement = document.createElement("p");
+    valorTotalElement.innerText = `Valor total: $${valorTotal}`; // Muestra el valor total
+    contenidoCarritoElement.appendChild(valorTotalElement);
+
   }
 }
 
+
+
+
+
+
+// evento que muestra el contenido del coarrito
 let btnCarrito = document.getElementById("btnCarrito")
 btnCarrito.addEventListener("click", () => {
   mostrarContenidoCarrito()
 })
 
 
+// evento que vacia el interior del carrito
+let btnVaciar = document.getElementById ("btnVaciar")
+
+btnVaciar.addEventListener("click", ()=>{
+  carrito = []
+  localStorage.removeItem("carrito")
+  mostrarContenidoCarrito()
+})    
+
+
 //  se toma por ID el div buscador
 let buscador = document.getElementById("buscador")
 let divBuscar = document.getElementById ("divBuscador")
 divBuscar.classList.add("styleBuscador") // se agrega clase al buscador
+
  
 let contenedorHoteles = document.getElementById("contenedorHoteles") // se toma por id el div 
 
@@ -62,6 +99,8 @@ let contenedorHoteles = document.getElementById("contenedorHoteles") // se toma 
 buscador.addEventListener("input", buscarHoteles)
 // Mostrar todos los hoteles al cargar la página
 mostrarHoteles(hoteles)
+
+
 
 // Función para mostrar los hoteles
 function mostrarHoteles(hoteles) {
@@ -72,7 +111,7 @@ function mostrarHoteles(hoteles) {
  
     let imagen = document.createElement("img")
     imagen.src = hotel.rutaImagen 
-    imagen.classList.add("imgHotel")
+    imagen.classList.add("imagenes")
     divHotel.appendChild(imagen)
 
     let nombre = document.createElement("h4")
@@ -80,11 +119,11 @@ function mostrarHoteles(hoteles) {
     divHotel.appendChild(nombre)
 
     let estrellas = document.createElement("p")
-    estrellas.innerText = "Estrellas: " + hotel.estrellas
+    estrellas.innerText = `Estrellas:  ${hotel.estrellas}`
     divHotel.appendChild(estrellas)
 
     let precio = document.createElement("p")
-    precio.innerText = "Precio: $" + hotel.precio
+    precio.innerText = `Precio: $${hotel.precio}`
     divHotel.appendChild(precio)
 
     contenedorHoteles.appendChild(divHotel)
@@ -102,9 +141,17 @@ function mostrarHoteles(hoteles) {
 
 // agrega noche al carrito 
 function agregarNocheHotel(hotel) {
+  let hotelExistente = carrito.find(item => item.id === hotel.id)
+    
+  if (hotelExistente) {
+    hotelExistente.noches += 1 
+  } else {
+    hotel.noches = 1
   carrito.push(hotel)
+  }
   localStorage.setItem("carrito", JSON.stringify(carrito))
-   alert(`Se ha agregado una noche en el hotel "${hotel.nombre}" al carrito de compras.`)
+   //alert(`Se ha agregado una noche en el hotel "${hotel.nombre}" al carrito de compras.`)
+   mostrarContenidoCarrito()
 }
 
 
@@ -121,195 +168,105 @@ function buscarHoteles() {
 
 // evento para checkbox por categoria 
 let checkBox1 = document.getElementById("checkbox1") 
-checkBox1.addEventListener("change", () => {  // evento 
-  checkBox1.checked ? filtrarPorCategoria(5) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
+checkBox1.addEventListener("click", () => {  // evento que se modifica si una 
+  // checkBox1.checked ? filtrarPorCategoria(5) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
+  filtrarPorCategoria(5)
 })
 
 let checkBox2 = document.getElementById("checkbox2")
-checkBox2.addEventListener("change", () => {
-  checkBox2.checked ? filtrarPorCategoria(4) : mostrarHoteles(hoteles) // se utiliza metodo ternario del IF
+checkBox2.addEventListener("click", () => {
+  // checkBox2.checked ? filtrarPorCategoria(4) : mostrarHoteles(hoteles) // se utiliza metodo ternario del IF
+  filtrarPorCategoria(4)
 
 })
 
 let checkBox3 = document.getElementById("checkbox3")
-checkBox3.addEventListener("change", () => {
-    checkBox3.checked ? filtrarPorCategoria(3) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
+checkBox3.addEventListener("click", () => {
+filtrarPorCategoria(3)
 })
 
 let checkBox4 = document.getElementById("checkbox4");
-checkBox4.addEventListener("change", () => {
-  checkBox4.checked ? filtrarPorCategoria(2) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
-
+checkBox4.addEventListener("click", () => {
+filtrarPorCategoria(2)
 })
 
 let checkBox5 = document.getElementById("checkbox5");
-checkBox5.addEventListener("change", () => {
-  checkBox5.checked ? filtrarPorCategoria(1) : mostrarHoteles(hoteles)// se utiliza metodo ternario del IF
-
+checkBox5.addEventListener("click", () => {
+filtrarPorCategoria(1)
 })
 
+let todos = document.getElementById("todos")
+todos.addEventListener("click", () =>{
+  mostrarHoteles(hoteles)
+})
+
+// funcion para filtrar por categoria
 function filtrarPorCategoria(categoria) {
   let resultados = hoteles.filter(hotel => hotel.estrellas === categoria)
+  
   mostrarHoteles(resultados)
 }
 
+// evento que desplaza la vista hacia el contenido del carrito
+btnCarrito.addEventListener("click", () => {
+  divCarrito.scrollIntoView({ behavior: "smooth" })
+})
 
 
 
 
 
 
+let btnHoteles = document.getElementById("btnHoteles")
+btnHoteles.addEventListener("click" , () =>{
+  mostrarHoteles(hoteles)
+})
 
+// se toma btn de autos para luego ingresarle productos
+let btnAutos = document.getElementById ("btnAutos")
 
-// let opciones
-
-// let nombre = prompt('Ingresa tu nombre')
-
-// let mensaje = "Bienvenido " + nombre + " a 'Hoteles Ushuahia'. Te pido que elijas una de estas opciones \n1 - Lista de hoteles\n2 - Filtrar por categoria\n3 -  Buscar por nombre\n4 - Listar ordenados por precio\n5 - Agregar hotel al carrito \n 6 - Listar y calcular por noche\n0 - SALIR"
-
-
-// //  funcion que sirve para listar
-// function listar(arrayAListar) {
-//   let listado = "ID - Nombre\n"
-//   arrayAListar.forEach(element => {
-//     listado = listado + element.id + " - " + element.nombre + "\n"
-//   })
-//   return listado
-// }
-
-
-// // comienza la estructura
-// do {
-//   let opciones = Number(prompt(mensaje))
-
-//   //                    LISTAR HOTELES
-//   if (opciones === 1) {
-
-
-//           let nombreHoteles = hoteles.map((hotel) => hotel.nombre) // crea array con los nombres 
-//           let listaHoteles = nombreHoteles.join(",\n") // une todos los nombre de los hoteles en una variable
-
-//           alert("Nombres de los hoteles disponibles:\n" + listaHoteles)
-
-
-//   } else if (opciones === 2) {
-//     //            FILTRAR POR CANTIDAD DE ESTRELLAS
-//           let categoria = Number(prompt(nombre + " por favor indicá el número de estrellas de hotel estás buscando \n 1 estrella \n 2 estrellas \n 3 estrellas \n 4 estrellas \n 5 estrellas "))
+// se toma btn de asistencia para luego ingresarle productos
+let btnAsistencias = document.getElementById("btnAsistencias")
 
 
 
-//           let hotelesFiltrados = hoteles.filter((hotel) => hotel.estrellas === categoria) // filtra y compara estrellas con variable categoria
-//           let hotelesInfo = hotelesFiltrados.map((hotel) => `${hotel.nombre} - ${hotel.estrellas} estrellas`) // se crea variable para guardar el map 
+// se toma btn excursiones
+let btnExcursiones = document.getElementById("btnExcursiones")
+btnExcursiones.addEventListener("click", () =>{
+  mostrarExcursiones(excursiones)
+})
+// funcion para mostrar excursiones
+function mostrarExcursiones(excursiones) {
+  contenedorHoteles.innerHTML = ""
 
-//           let mensaje = "Hoteles filtrados por categoría de estrellas:"
-          
-//           if (hotelesInfo.length > 0) { // si el tamaño del array es mayor a 0 retornará todos los hoteles de una misma categoria
-//             mensaje += "\n" + hotelesInfo.join("\n")
-//           } else {
-//             mensaje += "\nNo se encontraron hoteles en esa categoría."
-//           }
+  excursiones.forEach(excursion => {
+    let divExcursion = document.createElement("div")
+ 
+    let imagen = document.createElement("img")
+    imagen.src = excursion.rutaImagen 
+    imagen.classList.add("imagenes")
+    divExcursion.appendChild(imagen)
 
-//           alert(mensaje);
-
-//   } else if (opciones === 3) {
-//     //              BUSCA POR NOMBRE DE HOTEL
-//           let nombreIngresado = prompt("Ingresá el nombre del hotel que estás buscando") 
-//           nombreIngresado = nombreIngresado.toLowerCase(); 
-//           let nombreBuscado = hoteles.find ( hotel => hotel.nombre.toLowerCase() === nombreIngresado) // busca y compara  hotel ingresado con uno que ya existe
-//           if (nombreBuscado) { // si la condicion es tru, devolverá una concatenación de propiedad especificaas
-//             alert(`Nombre: ${nombreBuscado.nombre}\nCategoría: ${nombreBuscado.estrellas} estrellas\nPrecio: ${nombreBuscado.precio}`)
-//           } else {
-//             alert("Hotel no encontrado");
-//           }
+    let nombre = document.createElement("h4")
+    nombre.innerText = excursion.nombre
+    divExcursion.appendChild(nombre)
 
   
-//   } else if (opciones ===4){
-//     let orden = prompt("Ingrese '+' si quiere que se ordene de mayor a menor precio, O ingrese '-' si quiere que se ordene de menor a mayor precio" )
-//     //                      ORDENAR POR PRECIO
-//         if (orden === '-'){
-//           let hotelesPorPrecio = hoteles.sort((a, b) => a.precio - b.precio) // se ordena de manera ascendente
-//           let nombresHoteles = hotelesPorPrecio.map(hotel => hotel.nombre) // se utiliza map para asociar precio y nombre de cada htl
-      
-//           let mensaje = listarPrecio(hotelesPorPrecio)
-      
-//            alert(mensaje)
-//         } else if ( orden === "+"){
-//           let hotelesPorPrecio = hoteles.sort((a, b) => b.precio - a.precio)
-//           let nombresHoteles = hotelesPorPrecio.map(hotel => hotel.nombre)
-      
-//           let mensaje = listarPrecio(hotelesPorPrecio)
-      
-//           alert(mensaje)
-//         } else{
-//           alert("Error en dato ingresado")
-//         }
 
-//         function listarPrecio(arrayAListar) { // funcion creada para listar 
-//           let listado = "Nombnre - Precio\n"
-//           arrayAListar.forEach(element => {
-//             listado = listado + element.nombre + " -  $" + element.precio + "\n"
-//           })
-//           return listado
-//     }
-//   } else if (opciones ===5){
-// //                                  AGREGAR HOTEL A CARRITO
-//           let listaHoteles = "Lista de Hoteles:\n"
-//           hoteles.forEach((hotel) => { // recorre array hoteles y se crea variable con propiedades especificas para mostrar a usuario
-//             listaHoteles += `    ID: ${hotel.id}\nNombre: ${hotel.nombre}\nPrecio:  $${hotel.precio} por noche \n `
-//           })
-//           let agregar = prompt (listaHoteles)
+    let precio = document.createElement("p")
+    precio.innerText = `Precio: $${excursion.precio}`
+    divExcursion.appendChild(precio)
 
+    contenedorHoteles.appendChild(divExcursion)
 
-//           let hotelSeleccionado = hoteles.find((hotel) => hotel.id === Number(agregar)) // se usa find para buscar ID con lo q ingresa usuario
+    let botonAgregarNoche = document.createElement("button")
+    botonAgregarNoche.innerText = "Agregar noche +"
+    divExcursion.appendChild(botonAgregarNoche)
 
-//           if (hotelSeleccionado) { // si la condicion es true va a agregar a carrito lo q selecciono usuario
-//             // Agregar el hotel seleccionado al array carrito
-//             carrito.push(hotelSeleccionado) 
-//             alert("Hotel agregado al carrito.")
-//           } else {
-//             alert("Por favor ingrese una opción correcta.")
-//           }
+    // evento para agregar noche con el boton
+    botonAgregarNoche.addEventListener("click", () => agregarNocheHotel(hotel))
 
-//   } else if (opciones === 6) {
-          
-//     let lista =""
- 
-//         if (carrito.length > 0){ // si se cumple condicion, se recorrera el array carrito para q se mueste nombre y precio de c/hotel
-//           carrito.forEach((hotel) => {
-//             lista += `${hotel.nombre} $ ${hotel.precio} por noche\n`
-//           })
-//         } else{
-//           alert("Ha ocurrido un error.")
-//         }
-//         alert ("Tu opción elegida es\n " + lista)
-
-//         let cantNoches = Number(prompt("Ahora indicanos cuantas noches vas a hospedarte."))
-
-//         if (cantNoches > 0) { // si cantNoches es mayor a 0 se hara calculo 
-//         carrito.forEach((hotel) =>{
-//           let total = hotel.precio * cantNoches
-//         alert("EL total a abonar es de: $ " + total)
-//        })
-      
-//       } else {
-//         alert("Por favor ingrese una opción correcta.")
-//       }
-
-
-//    } else if (opciones === 0){
-//       alert("Gracias por visitar 'Hoteles Ushuahia' ")
-//          break // si usuario elige esta opción, finalizará el códigop
-//    }
-
-// } while(opciones !== 0)
-
-// let nombrePelicula = prompt ('Ingrese un nombre de una pelicula')
-
-
-
- 
-
-
-
-/////////////////////////////////////////////////////////////////////
- 
+    
+          })
+}
+// se toma btn de excursiones para luego agregarle prodcutos

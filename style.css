@@ -5,14 +5,54 @@
     font-family: 'Kanit', sans-serif;
 }
 
+.divSticky{
+  position: sticky;
+  top: 0px;
+  position: sticky;
+
+}
 /* estilo para contenedor de hoteles */
 #contenedorHoteles {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 10px;
+
+
+
+    display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+  justify-items: center;
+  padding: 4rem;
   }
+
+main{
+  display: flex;
+  flex: wrap;
+  
+}
+ 
+.btnFiltros{
+  width: 9rem;
+
+}
+
+.carrito{
+  margin-top: 20px;
+  right: 10rem;
+}
+
+
+.vaciar{
+  margin-top: 20px;
+}
+
+.filtrarCategoria{
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+gap: 5px;
+}
+
+ 
 
   h1{
     text-align: center;
@@ -24,11 +64,12 @@
   
  .styleBuscador{
     display: flex;
-    justify-content: center;
+    justify-content: space-around ;
+    padding-top: 2rem;
  }
 
   /* clase para imagenes de hoteles */
-.imgHotel{
+.imagenes{
     height: 300px;
     width: 300px;
     background-position: center;

@@ -5,63 +5,103 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <!-- boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
 
-    <title>Practica JS</title>
+
+
+
+
+    <title>Hoteles Ushuaia</title>
 </head>
 <body>
 
-    <header>       
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end container ">
-            <button id="btnCarrito" class="carrito">CARRITO</button>
-            <button id="btnVaciar" class="vaciar"> VACIAR  </button>
+  <!-- <input type="text" id="myInput"> -->
+
+    <header >       
+        <!-- boton de visualizacion y borrar carrito -->
+        <div class=" d-flex justify-content-end mb-5 gap-2 fixed-bottom container">
+            <button id="btnCarrito" class="iconoCarrito btn btn-outline-danger rounded-circle" title="Ver carrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </svg>
+            </button>
+            <button id="btnVaciar" class="  iconoCarrito btn btn-outline-danger rounded-circle" title="Vaciar carrito"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart-x-fill" viewBox="0 0 16 16">
+                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7.354 5.646 8.5 6.793l1.146-1.147a.5.5 0 0 1 .708.708L9.207 7.5l1.147 1.146a.5.5 0 0 1-.708.708L8.5 8.207 7.354 9.354a.5.5 0 1 1-.708-.708L7.793 7.5 6.646 6.354a.5.5 0 1 1 .708-.708z"/>
+                </svg>  
+            </button>
         </div>
         
-        <h1 id="titulo">Hoteles Ushuaia</h1>
-        <img src="img/Ushuaia.jpg" alt="" height=" "> 
+        <h1 id="titulo" class="my-4">Hoteles Ushuaia</h1>
+        <img src="img/Ushuaia.jpg" class="mx-auto" alt="" height=" "> 
        
 
 </header>
-<nav class="divSticky">
+
+
+
+<!-- nav que va a mostrar botones con otros servicios -->
+<nav class="sticky py-1  container ">
                 
-    <div id="divBuscador" class="container d-grid gap-5 d-md-flex justify-align-center bg-secondary pb-4 rounded-bottom ">
+    <div id="divBuscador" class=" d-grid gap-5 d-md-flex justify-align-center bg-secondary   pb-4 rounded ">
         <button id="btnExcursiones" class="btn btn-outline-light "> Excursiones </button>
         <button id="btnAutos" class="btn btn-outline-light  "> Alquiler de autos</button>
         <button id="btnAasistencias" class="btn btn-outline-light "> Asistencias</button>
         <button id="btnHoteles" class="btn btn-outline-light "> Alojamientos </button>                  
-        <input id="buscador" placeholder="Busqueda"> 
+        
+        <input id="buscador" class="" placeholder="Busqueda"> 
     </div>
 </nav>
-<main class="container">
+<main class="container ">
         
 
+<!-- botones de filtros -->
+<div class="filtrarCategoria fs-6 t-center mt-5 "> Filtrar por categoría <br>
 
-<div class="filtrarCategoria fs-6 t-center mt-5"> Filtrar por categoría <br>
-
-    <button id="cincoEstrellas" class=" btnFiltros btn btn-outline-dark "> 5 estrellas</button>
+    <button id="cincoEstrellas" class=" btnFiltros btn btn-outline-dark btn-rounded"> 5 estrellas</button>
     <button id="cuatroEstrellas" class=" btnFiltros btn btn-outline-dark"> 4 estrellas </button>
     <button id="tresEstrellas" class=" btnFiltros btn btn-outline-dark"> 3 estrellas</button>
     <button id="dosEstrellas" class=" btnFiltros btn btn-outline-dark"> 2 estrellas</button>
     <button id="unaEstrella" class=" btnFiltros btn btn-outline-dark"> 1 estrella</button>
     <button id="todos" class=" btnFiltros btn btn-outline-dark"> Todos </button>
+    
+ 
 
-    <div id="divCarrito" class="container "></div> 
+    <div class=" filtrarCategoria row">
+      Filtrar por precio
+      <input class="filtroPorPrecio" type="text" placeholder="Mínimo" id="minimo"> 
+      <input class="filtroPorPrecio" type="text" name="" id="maximo" placeholder="Máximo" >
+      <button class="btn btn-search btn-light " type="button" id="filtrarBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="fa fa-search fa-fw"></i>  
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg></button>
 
+    </div>
 
 </div>
-        
 
 
 
 
-    <div id="contenedorHoteles"> </div>
-    <div id="divCarrito" class="container "></div> 
-
+<!-- DIV que va a mostrar todos los hoteles -->
+    <div id="contenedorHoteles">  </div>
+ 
     </main>
 
+    <!-- en este contenedor se visualizará el contenido del carrito  -->
+    <div id="divCarrito" class=" contenidoCarrito my-5">
+      <div id="divCarritoExc"></div>
+      
+    </div> 
+ 
 
-    <!-- Remove the container if you want to extend the Footer to full width. -->
-<div class="container my-5">
+<!-- footer con Boostrap -->
+<div class="  ">
 
     <footer class="bg-dark text-center text-white">
     <!-- Grid container -->
@@ -114,6 +154,14 @@
   </footer>
     
   </div>
+  <!-- boostrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+ <!-- toastify -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
     <script src="./script.js"></script>
     

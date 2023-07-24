@@ -1,0 +1,131 @@
+{
+    "hoteles": [
+       {
+          "id": 1,
+          "nombre": "Hotel Los Altos Ushuahia",
+          "estrellas": 4,
+          "precio": 15000,
+          "rutaImagen": "img/altosUshuaia.jpg"
+       },
+       {
+          "id": 2,
+          "nombre": "Hotel Monaco",
+          "estrellas": 3,
+          "precio": 12000,
+          "rutaImagen": "img/monaco.jpg"
+       },
+       {
+          "id": 3,
+          "nombre": "Hotel Fueguino",
+          "estrellas": 3,
+          "precio": 11000,
+          "rutaImagen": "img/fueguino.jpg"
+       },
+       {
+          "id": 4,
+          "nombre": "Hotel Vitalia",
+          "estrellas": 4,
+          "precio": 18000,
+          "rutaImagen": "img/vitalia.jpg"
+       },
+       {
+          "id": 5,
+          "nombre": "Hotel Alto Andino",
+          "estrellas": 5,
+          "precio": 21000,
+          "rutaImagen": "img/altoAndino.jpg"
+       },
+       {
+          "id": 6,
+          "nombre": "Hostel Las Marias",
+          "estrellas": 2,
+          "precio": 8000,
+          "rutaImagen": "img/lasMarias.jpg"
+       },
+       {
+          "id": 7,
+          "nombre": "Hotel Las Hayas Resort",
+          "estrellas": 5,
+          "precio": 22000,
+          "rutaImagen": "img/lasHayas.jpg"
+       },
+       {
+          "id": 8,
+          "nombre": "Hotel Los Naranjos",
+          "estrellas": 3,
+          "precio": 13000,
+          "rutaImagen": "img/losnaranjos.jpg"
+       },
+       {
+          "id": 9,
+          "nombre": "Hotel Las Lengas",
+          "estrellas": 4,
+          "precio": 19000,
+          "rutaImagen": "img/lasLengas.jpg"
+       },
+       {
+          "id": 10,
+          "nombre": "Hotel Canal de Beagle",
+          "estrellas": 4,
+          "precio": 18500,
+          "rutaImagen": "img/canalBeagle.jpg"
+       },
+       {
+          "id": 11,
+          "nombre": "Hotel Mil810",
+          "estrellas": 3,
+          "precio": 14500,
+          "rutaImagen": "img/mil810.jpg"
+       },
+       {
+          "id": 12,
+          "nombre": "Campanilla",
+          "estrellas": 3,
+          "precio": 16000,
+          "rutaImagen": "img/campanilla.jpg"
+       },
+       {
+          "id": 13,
+          "nombre": "Costa Ushuaia",
+          "estrellas": 4,
+          "precio": 18500,
+          "rutaImagen": "img/costaUshuaia.jpg"
+       },
+       {
+          "id": 14,
+          "nombre": "Tolkeyen",
+          "estrellas": 3,
+          "precio": 13500,
+          "rutaImagen": "img/tolkeyen.jpg"
+       },
+       {
+          "id": 15,
+          "nombre": "Hostal Malvina",
+          "estrellas": 2,
+          "precio": 7000,
+          "rutaImagen": "img/malvinas.webp"
+       },
+       {
+          "id": 16,
+          "nombre": "Los Cauquenes Spa & Resort",
+          "estrellas": 5,
+          "precio": 22500,
+          "rutaImagen": "img/cauquenes.jpg"
+       },
+       {
+          "id": 17,
+          "nombre": "Anum Hostel",
+          "estrellas": 1,
+          "precio": 6000,
+          "rutaImagen": "img/anum.webp"
+       }
+    ],
+    "excursiones": [
+       {
+          "id": 1,
+          "nombre": "Parque con Trekking y Canoas",
+          "precio": 35190,
+          "rutaImagen": "img/excursiones/trekingCanoas.jpg"
+       }
+    ]
+ }

@@ -4,13 +4,19 @@
 *{
     font-family: 'Kanit', sans-serif;
 }
+nav{
+  padding-top: 10px;
+  z-index: 2;
+}
 
-.divSticky{
+.sticky{
   position: sticky;
   top: 0px;
   position: sticky;
 
 }
+
+
 /* estilo para contenedor de hoteles */
 #contenedorHoteles {
 
@@ -34,15 +40,14 @@ main{
 
 }
 
-.carrito{
-  margin-top: 20px;
+.iconoCarrito{
   right: 10rem;
+  width: 3rem;
+  height: 3rem;
+  
 }
 
 
-.vaciar{
-  margin-top: 20px;
-}
 
 .filtrarCategoria{
 display: flex;
@@ -78,4 +83,81 @@ gap: 5px;
     
 }
 
+.contenidoCarrito{
+  /* max-width: 20rem; */
+  background-color: rgba(254, 234, 234, 0.878);
+  border: 5px;
+  border-color: black;
+  border-radius: 6px;
+  margin-left: 20rem;
+  margin-right: 20rem;
+  display: flex;
+  flex-direction: column ;
+  gap: 15px;  
+  
+  
+}
 
+.filtroPorPrecio{
+  width:  65px
+}
+
+
+.botonSumar{
+  width: 50px;
+  height: 20px;
+  z-index: 1;
+  color: #fff;
+  margin: 0px 5px 0px 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 20px;
+  border: 2px solid #2c0b8e;
+  background: #2c0b8e;
+}
+.botonSumar:hover {
+  background: #fff;
+  color: #2c0b8e
+}
+
+.btnFinalizar{
+  width: 40%;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  margin-left: 30%;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  z-index: 0;
+  background: #fff;
+  overflow: hidden;
+  border: 2px solid #4c2ab3;
+  color: #4c2ab3;
+  
+}
+.btnFinalizar:hover {
+  color: #fff;
+}
+.btnFinalizar:hover:after {
+  height: 100%;
+}
+.btnFinalizar:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease;
+  left: 0;
+  top: 0;
+  height: 0;
+  width: 100%;
+  background: #2c0b8e;
+}

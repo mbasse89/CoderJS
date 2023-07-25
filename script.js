@@ -26,6 +26,8 @@ fetch('db.json')
 
     function mostrarContenidoCarrito() {
       let contenidoCarritoElement = document.getElementById("divCarrito")
+      contenidoCarritoElement.classList.add("contenidoCarrito")
+
       let totalNoches = 0
       let valorTotal = 0
 
@@ -39,8 +41,7 @@ fetch('db.json')
         carrito.forEach((producto, index) => {
           
           let productoElement = document.createElement("div")
-          productoElement.classList.add("contenidoCarrito")
-
+          productoElement.classList.add("elementosCarrito")
           let nombre = document.createElement("p")
           nombre.innerText = `\n Producto ${index + 1}: ${producto.nombre}`
           productoElement.appendChild(nombre)
@@ -90,7 +91,7 @@ fetch('db.json')
 
           // Botón para aumentar la cantidad de noches del producto
           let agregarNoches = document.createElement("label")
-          agregarNoches.innerText = "\n agregar noches"
+          agregarNoches.innerText = "Agregar noches"
           productoElement.appendChild(agregarNoches)
 
           let agregarNocheBtn = document.createElement("button")
@@ -120,9 +121,7 @@ fetch('db.json')
             }
           })
 
-          let aplicarBtn = document.createElement("button")
-          aplicarBtn.innerText = "Aplicar"
-          productoElement.appendChild(aplicarBtn)
+
 
           let eliminarBtn = document.createElement("button")
           eliminarBtn.innerText = "Eliminar"
@@ -142,14 +141,6 @@ fetch('db.json')
 
           })
 
-          // Evento para aplicar la cantidad de pasajeros al producto
-          aplicarBtn.addEventListener("click", () => {
-            producto.pasajeros = parseInt(pasajerosInput.value)
-            mostrarContenidoCarrito()
-
-
-
-          })
 
 
           contenidoCarritoElement.appendChild(productoElement)
@@ -493,6 +484,7 @@ function agregarNocheExcursion(excursion) {
 
 
     let inputMinimo = document.getElementById("minimo")
+    inputMinimo.classList.add("filtroBuscar")
     let inputMaximo = document.getElementById("maximo")
 
 

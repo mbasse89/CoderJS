@@ -1,5 +1,6 @@
 programaPrincipal()
 
+ 
 
 function programaPrincipal() { }
 
@@ -19,9 +20,6 @@ fetch('db.json')
       carrito = JSON.parse(localStorage.getItem("carrito"))
     }
     ///
-
-
-
 
 
     function mostrarContenidoCarrito() {
@@ -83,7 +81,7 @@ fetch('db.json')
           sacarPasajerosBtn.addEventListener("click", () => {
             if (producto.pasajeros > 1) {
               producto.pasajeros -= 1
-              pasajeros.innerText = `Cantidad de pasajeros: ${producto.pasajeros}`
+              pasajeros.innerText = `Cantidad de pasajeros: ${producto.pasajeros}` 
               mostrarContenidoCarrito()
             }
           })
@@ -98,18 +96,12 @@ fetch('db.json')
           agregarNocheBtn.innerText = "+"
           agregarNocheBtn.classList.add("botonSumar")
           productoElement.appendChild(agregarNocheBtn)
-
-          // Evento para aumentar la cantidad de noches del producto
-          agregarNocheBtn.addEventListener("click", () => {
-            if (producto.noches > 1) {
-              producto.noches += 1
-              mostrarContenidoCarrito()
-            } mostrarContenidoCarrito()
-          })
+ 
+          
 
           let sacarNocheBtn = document.createElement("button")
           sacarNocheBtn.innerText = "-"
-          sacarNocheBtn.classList.add("botonSumar")
+          sacarNocheBtn.classList.add("botonSumar",  "gap-1")
 
           productoElement.appendChild(sacarNocheBtn)
 

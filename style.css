@@ -96,6 +96,7 @@ gap: 5px;
   justify-content: center;
   gap: 15px;  
   place-content: center;
+  padding-bottom: 5px;
   
 }
 
@@ -111,26 +112,29 @@ margin-left: 9px;
 }
 
 
-.botonSumar{
-  width: 50px;
-  height: 20px;
-  z-index: 1;
-  color: #fff;
-  margin: 0px 5px 0px 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  outline: none;
-  border-radius: 20px;
-  border: 2px solid #2c0b8e;
-  background: #2c0b8e;
+.botonSumar {
+  background-color: rgba(254, 234, 234, 0.878);
+	border-radius:28px;
+	border:1px solid #2c0b8e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:8px;
+	padding:3px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+  gap: 5px;
 }
 .botonSumar:hover {
-  background: #fff;
-  color: #2c0b8e
+	background-color:#2c0b8e;
 }
+.botonSumar:active {
+	position:relative;
+	top:1px;
+}
+
+
 
 .btnFinalizar{
   width: 40%;
